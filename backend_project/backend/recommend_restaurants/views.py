@@ -5,7 +5,7 @@ import openai
 
 # Create your views here.
 model_engine = "text-davinci-003"
-openai.api_key='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'
+openai.api_key='YOUR API KEY'
 
 #chatGPTを呼ぶ関数
 def ChatGPT(user_query):
