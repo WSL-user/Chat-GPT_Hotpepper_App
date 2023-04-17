@@ -3,3 +3,4 @@ altair
 pandas
 streamlit
 openai
+django-cors-headers
