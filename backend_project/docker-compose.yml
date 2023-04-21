@@ -1,0 +1,15 @@
+
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    volumes:
+      - ./backend:/backend
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    tty: true

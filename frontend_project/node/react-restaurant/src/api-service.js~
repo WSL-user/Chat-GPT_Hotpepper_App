@@ -1,0 +1,57 @@
+export class API {
+    static updateRestaurant(rest_id, body, token) {
+	return fetch(`http://localhost:8001/restaurants/restaurants_api/${rest_id}/`, {
+	    method : "PUT",
+	    headers : {
+		'Content-Type': 'application/json',
+		'Authorization' : `Token ${token}`
+	    },
+	    body: JSON.stringify(body)
+	}).then(resp => resp.json())
+    }
+
+    static getRestaurants() {
+
+    }
+
+    static loginUser(body) {
+	return fetch(`http://localhost:8001/auth/`, {
+	    method : "POST",
+	    headers : {
+		'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify(body)
+	}).then(resp => resp.json())
+    }
+
+    static registerUser(body) {
+	return fetch(`http://localhost:8001/restaurants/users/`, {
+	    method : "POST",
+	    headers : {
+		'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify(body)
+	}).then(resp => resp.json())
+    }
+
+    static createRestaurant(body, token) {
+	return fetch(`http://localhost:8001/restaurants/restaurants_api/`, {
+	    method : "POST",
+	    headers : {
+		'Content-Type': 'application/json',
+		'Authorization' : `Token ${token}`
+	    },
+	    body: JSON.stringify(body)
+	}).then(resp => resp.json())
+    }
+
+    static deleteRestaurant(rest_id, token) {
+	return fetch(`http://localhost:8001/restaurants/restaurants_api/${rest_id}/`, {
+	    method : "DELETE",
+	    headers : {
+		'Content-Type': 'application/json',
+		'Authorization' : `Token ${token}`
+	    },
+	})
+    }
+}
