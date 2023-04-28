@@ -1,0 +1,16 @@
+
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    volumes:
+      - ./backend:/backend
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+    #TODO ポート番号任意のものに変更して下さい
+      - "18842:8080"
+      - "18843:8000"
+    tty: true
