@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  node:
+    build:
+      context: ./docker/node
+      shm_size: '2gb'
+    volumes:
+      - ./node:/usr/src/app:cached
+    shm_size: '2gb'
+    command: sh -c "cd react-restaurant && PORT=3001 yarn start"
+    ports:
+      - "3001:3001"
