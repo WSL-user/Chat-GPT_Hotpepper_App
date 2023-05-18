@@ -3,63 +3,73 @@
   min-height: 100vh;
   background-color: #282c34;
   color: white;
+  font-size: large;
 }
 
 .login-container {
-    width: 50%;
-    margin: 0 25%;
+  width: 50%;
+  margin: 0 25%;
 }
 
 .search-container {
-    display: grid;
-    grid-template-columns: 0.9fr 0.1fr;
-    grid-gap: 8%;
-    margin: 2% 25%;
+  display: grid;
+  grid-template-columns: 0.9fr 0.1fr;
+  grid-gap: 8%;
+  margin: 2% 25%;
 }
 
 .fa-trash {
-    color:red;
+  color: red;
 }
 
 h1 .fa-utensils {
-    color:orange;
-    transform: rotate(30deg);
+  color: orange;
+  transform: rotate(30deg);
 }
 
 .fa-right-from-bracket {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    font-size: 1.5rem;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
-input, textarea {
-    width:100%;
-    padding:10px;
-    margin: 8px, 0;
-    font-size: 0.8rem;
+.input {
+  color: #282c34;
+  width: 100%;
+  padding: 10px;
+  margin: 8px, 0;
+  font-size: 0.9rem;
 }
 
-button {
-    color: #444;
-    background-color: #f3f3f3;
-    padding: 5px, 10px;
-    border-radius: 2px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    outline: none;
+.textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px, 0;
+  font-size: 0.8rem;
 }
 
-button:disabled {
-    color: #f3f3f3;
-    background-color: #444;			  
+.button {
+  width: 70px;
+  height: 30px;
+  color: #444;
+  background-color: #f3f3f3;
+  padding: 5px, 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  outline: none;
 }
 
+.button:disabled {
+  color: #f3f3f3;
+  background-color: #444;
+}
 
 .App-header {
   text-align: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(30px + 2vmin);
 }
 
 .search-result {
@@ -68,36 +78,35 @@ button:disabled {
 }
 
 .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
 }
 
 .orange {
-    color: orange;
+  color: orange;
 }
 
 .purple {
-    color: purple;
+  color: purple;
 }
 
 .rate-container {
-    margin-top: 20px;
-    border-top: 2px solid purple;
+  margin-top: 20px;
+  border-top: 2px solid purple;
 }
 
 .rate-container .fa-star {
-    font-size: 1.8rem;
-    cursor: pointer;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 
 .restaurant-item {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
 }
 
-.restaurant-item svg{
-    font-size: 1.2rem;
-    margin: 16px 5px;
+.restaurant-item svg {
+  font-size: 1.2rem;
+  margin: 16px 5px;
 }
-
