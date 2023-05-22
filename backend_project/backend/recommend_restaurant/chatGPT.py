@@ -14,14 +14,38 @@ def ask_chatGPT(restaurant):
 #TODO 改良してみよう(渕君)
 def make_prompt(restaurant):
     shop_dict = model_to_dict(restaurant)
-    prompt = f"""
-      次の特徴を踏まえて、飲食店の400文字程度の宣伝文を生成してください。なお、「:」の前側の言葉は使用しないでください
-    """
+    # 指示文章の英語化
+    prompt = "Please generate a 400-character advertisement for a restaurant in Japanese based on the following characteristics. Note that the words on the front side of ':' should not be used.\n\n"
+
+    # Hotpepper APIから得たデータのうち、下の要素のみを使って宣伝文を生成させる
+    candicates = set([
+        "access",
+        "address",
+        "budget",
+        "wifi",
+        "child",
+        "genre",
+        "sub_genre"
+        "catch",
+        "child",
+        "station_name",
+        "name",
+        "open",
+        "parking"
+    ])
 
     for key, value in shop_dict.items():
+        # このif文はよくわからなかったので残しておきます
         if key not in ["id"]:
-            prompt += f"""
-            {key} : {value}"""
+            if key in candicates:
+                # genreとbudgetにあるcodeという要素は不要なので省く
+                if key in ["genre", "budget"]:
+                    d = dict()
+                    for k, v in value.items():
+                        if k != "code":
+                            d[k] = v
+                    value = d
+                prompt += f"{key} : {value}\n"
 
     return prompt
 
