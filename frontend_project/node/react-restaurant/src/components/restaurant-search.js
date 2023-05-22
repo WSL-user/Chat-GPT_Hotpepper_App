@@ -161,7 +161,7 @@ function RestaurantSearch(props) {
   return (
     <React.Fragment>
       <Box className="search-container" w="700px">
-        <label htmlFor="query">Search Restaurant</label>
+        <Text htmlFor="query">Search Restaurant</Text>
         <br />
         <HStack color="white">
           <Center w="230px">

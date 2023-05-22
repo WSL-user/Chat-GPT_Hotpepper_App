@@ -10,10 +10,8 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useCookies } from "react-cookie";
 import { useFetch } from "./hooks/useFetch";
 import "./App.css";
-import {
-  Text,
-  Box,
-} from "@chakra-ui/react";
+import { HStack, Box } from "@chakra-ui/react";
+import RestaurantDrawer from "./components/sideBar";
 
 //アプリ全体を表示するやつ
 //参考: https://github.com/Nogostradamus/course-django-react-web
@@ -90,23 +88,23 @@ function App() {
   return (
     <Box className="App">
       <header className="App-header">
-        <h1>
-          <FontAwesomeIcon icon={faUtensils} /> Restaurant Rater ChatGPT
-        </h1>
+        <HStack spacing="250px">
+          <RestaurantDrawer
+            restaurants={restaurants}
+            restaurantClicked={loadRestaurant}
+            editClicked={editClicked}
+            deleteClicked={deleteClicked}
+            newRestaurant={newRestaurant}
+          />
+          <h1 className="title">
+            <FontAwesomeIcon icon={faUtensils} /> Restaurant Rater ChatGPT
+          </h1>
+        </HStack>
       </header>
       <FontAwesomeIcon icon={faSignOutAlt} onClick={logoutUser} />
 
       <RestaurantSearch updateRestaurant={loadRestaurant} />
       <div className="layout">
-        <div>
-          <RestaurantList
-            restaurants={restaurants}
-            restaurantClicked={loadRestaurant}
-            editClicked={editClicked}
-            deleteClicked={deleteClicked}
-          />
-          <button onClick={newRestaurant}>New Restaurant</button>
-        </div>
         <RestaurantDetails
           restaurant={selectedRestaurant}
           updateRestaurant={loadRestaurant}

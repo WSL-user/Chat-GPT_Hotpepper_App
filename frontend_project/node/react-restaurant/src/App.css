@@ -110,3 +110,8 @@ h1 .fa-utensils {
   font-size: 1.2rem;
   margin: 16px 5px;
 }
+
+.title {
+  font-size: 3.0rem;
+  font-weight: bold;
+}
