@@ -202,7 +202,6 @@ function RestaurantSearch(props) {
             >
               Search
             </button>
-            <button className="button" onClick={concatQueryOption}>テスト用</button>
           </Box>
         </HStack>
 
