@@ -4,3 +4,6 @@ pandas
 streamlit
 openai
 django-cors-headers
+ipython
+Janome
+regex
