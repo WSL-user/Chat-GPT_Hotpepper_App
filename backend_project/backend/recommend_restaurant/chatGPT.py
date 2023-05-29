@@ -34,17 +34,24 @@ def make_prompt(restaurant):
         "parking"
     ])
 
+    print(shop_dict)
+
     for key, value in shop_dict.items():
         # このif文はよくわからなかったので残しておきます
         if key not in ["id"]:
             if key in candicates:
                 # genreとbudgetにあるcodeという要素は不要なので省く
-                if key in ["genre", "budget"]:
-                    d = dict()
-                    for k, v in value.items():
-                        if k != "code":
-                            d[k] = v
-                    value = d
+                
+                # CHANGED(益川)
+                # ここはDB内のRestaurantオブジェクトのインスタンスからの参照になり, 既にgenreとbudgetはDB登録の段で辞書ではなくなるように処理しているので, 不要
+                # ask_chatGPTのエラーの原因となってしまっていたので, コメントアウト
+                
+                # if key in ["genre", "budget"]:
+                #     d = dict()
+                #     for k, v in value.items():
+                #         if k != "code":
+                #             d[k] = v
+                #     value = d
                 prompt += f"{key} : {value}\n"
 
     return prompt
