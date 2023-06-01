@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { API } from '../api-service';
-import { useChatGPT } from '../hooks/useChatGPT';
-import { useCookies } from 'react-cookie';
-import '../App.css';
-import Select, { components } from 'react-select';
+import React, { useState, useEffect, useRef } from "react";
+import { API } from "../api-service";
+import { useChatGPT } from "../hooks/useChatGPT";
+import { useCookies } from "react-cookie";
+import "../App.css";
+import Select, { components } from "react-select";
 
 import {
   Container,
@@ -15,68 +15,69 @@ import {
   Square,
   HStack,
   VStack,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { groupedOptions, colorOptions } from './docs/data';
+import { groupedOptions, colorOptions } from "./docs/data";
 function RestaurantSearch(props) {
   const LIMIT = 10;
   const [counter, setCounter] = useState(0);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   // const [optioned_query, setOptionedQuery] = useState('');
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [searchResult, setSearchResult] = useState(null);
   const [selectedResult, setSelectedResult] = useState(null);
-  const [chatGPTtext, setChatGPTText] = useState('');
+  const [chatGPTtext, setChatGPTText] = useState("");
   const [startLoading, setStartLoading] = useState(false);
-  const [token] = useCookies(['mr-token']);
-  const [id, setId] = useCookies(['restaurant-id']);
+  const [token] = useCookies(["mr-token"]);
+  const [id, setId] = useCookies(["restaurant-id"]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   //クエリとオプションを結合
   const concatQueryOption = () => {
-    const data = selectedOptions.map((option) => option.label).join(' ');
-    console.log(query + ' ' + data);
+    const data = selectedOptions.map((option) => option.label).join(" ");
+    const return_data = query + " " + data;
+    return return_data;
   };
 
   //オプションが追加された時の動作
   const handleSelect = (_newValue, actionMeta) => {
     switch (actionMeta.action) {
-      case 'select-option':
+      case "select-option":
         if (actionMeta.option) {
           const catBreed = actionMeta.option;
-          setSelectedOptions(prev => [...prev, catBreed]);
+          setSelectedOptions((prev) => [...prev, catBreed]);
           break;
         }
         break;
 
-      case 'remove-value':
+      case "remove-value":
         if (actionMeta.removedValue) {
           const toDeleteOption = actionMeta.removedValue;
 
-          setSelectedOptions(prev =>
+          setSelectedOptions((prev) =>
             prev.filter(
-              currentOptions => currentOptions.value != toDeleteOption.value
+              (currentOptions) => currentOptions.value != toDeleteOption.value
             )
           );
           break;
         }
         break;
-      case 'pop-value':
+      case "pop-value":
         if (actionMeta.removedValue) {
           const toDeleteOption = actionMeta.removedValue;
 
-          setSelectedOptions(prev =>
+          setSelectedOptions((prev) =>
             prev.filter(
-              currentOptions => currentOptions.value != toDeleteOption.value
+              (currentOptions) => currentOptions.value != toDeleteOption.value
             )
           );
           break;
         }
         break;
 
-      case 'clear':
+      case "clear":
         setSelectedOptions([]);
         break;
       default:
@@ -86,14 +87,14 @@ function RestaurantSearch(props) {
 
   //検索ボタンが押された時の動作
   const searchClicked = () => {
-    concatQueryOption();
-    console.log('start searching');
-    setChatGPTText('Loading');
+    const newQuery = concatQueryOption();
+    console.log(newQuery);
+    setChatGPTText("Loading");
     //まず、データベース内からクエリとマッチする要素を検索
-    console.log('searching in the DB');
-    API.searchRestaurant(query, token['mr-token'])
-      .then(resp => setSearchResult(resp))
-      .catch(error => console.log(error));
+    console.log("searching in the DB");
+    API.searchRestaurant(newQuery, token["mr-token"])
+      .then((resp) => setSearchResult(resp))
+      .catch((error) => console.log(error));
   };
 
   //検索結果が得られたらその一つを選ぶ機構
@@ -104,19 +105,19 @@ function RestaurantSearch(props) {
     if (searchResult && searchResult.length > 0) {
       setSelectedResult(searchResult[0]);
     } else if (
-      chatGPTtext === 'Loading' &&
+      chatGPTtext === "Loading" &&
       searchResult &&
       searchResult.length == 0
     ) {
       //データベース内に該当するものが見当たらない場合,ホットペッパーAPIを叩いてデータベースを拡充
-      API.hotpepperSearchRestaurant(query, token['mr-token'])
-        .then(resp => console.log(resp))
-        .catch(error => console.log(error));
+      API.hotpepperSearchRestaurant(query, token["mr-token"])
+        .then((resp) => console.log(resp))
+        .catch((error) => console.log(error));
 
       // その後, 再びデータベース内を検索
-      API.searchRestaurant(query, token['mr-token'])
-        .then(resp => setSearchResult(resp))
-        .catch(error => console.log(error));
+      API.searchRestaurant(query, token["mr-token"])
+        .then((resp) => setSearchResult(resp))
+        .catch((error) => console.log(error));
 
       //いくらやっても駄目ならそれはホットペッパーでもヒットしなかったということなので、無限ループ防止のため
       //なお、chatGPTtextを変えることで上のif文に引っかからなくして強制終了させている
@@ -139,13 +140,13 @@ function RestaurantSearch(props) {
       async function fetchData() {
         setLoading(true);
         setError();
-        console.log('id =');
+        console.log("id =");
         console.log(selectedResult.id);
 
         const data = await API.askChatGPT(
           selectedResult.id,
-          token['mr-token']
-        ).catch(err => setError(err));
+          token["mr-token"]
+        ).catch((err) => setError(err));
         setChatGPTText(data.recommendation_text);
         console.log(data.recommendation_text);
         setSelectedResult(null);
@@ -171,7 +172,7 @@ function RestaurantSearch(props) {
               type="text"
               placeholder="地名/駅名・ジャンルを入力"
               value={query}
-              onChange={evt => setQuery(evt.target.value)}
+              onChange={(evt) => setQuery(evt.target.value)}
             />
           </Center>
           <Center w="400px" color="black">
@@ -188,7 +189,7 @@ function RestaurantSearch(props) {
                 styles={{
                   control: (baseStyles, state) => ({
                     ...baseStyles,
-                    borderColor: state.isFocused ? 'grey' : 'white',
+                    borderColor: state.isFocused ? "grey" : "white",
                   }),
                 }}
               />
