@@ -75,7 +75,7 @@ function RestaurantForm(props) {
 
                 {props.restaurant.id ?
                  <button className="updateButton" onClick={updateClicked} disabled={isDisabled}>Update</button> :
-                 <button onClick={createClicked} disabled={isDisabled}>Create</button>		     
+                 <button className="updateButton" onClick={createClicked} disabled={isDisabled}>Create</button>		     
                 }
 
 

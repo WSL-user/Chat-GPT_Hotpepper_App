@@ -108,8 +108,8 @@ h1 .fa-utensils {
   color: orange;
 }
 
-.purple {
-  color: purple;
+.orange {
+  color: orange;
 }
 
 .rate-container {
@@ -135,4 +135,8 @@ h1 .fa-utensils {
 .title {
   font-size: 3.0rem;
   font-weight: bold;
+}
+
+.homePage{
+  color: blue;
 }
