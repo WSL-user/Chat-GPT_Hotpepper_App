@@ -54,6 +54,7 @@ class Restaurant(models.Model):
     parking = models.CharField(max_length=64, null=True, blank=True)
     small_area_code = models.CharField(max_length=8, null=True, blank=True)
     small_area_name = models.CharField(max_length=16, null=True, blank=True)
+    review = models.CharField(max_length=1024, null=True, blank=True)
 
     def no_of_ratings(self):
         ratings = Rating.objects.filter(restaurant=self)
