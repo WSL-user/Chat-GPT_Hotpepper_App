@@ -145,8 +145,17 @@ def insert_objects(hotpepper_response):
         return {}
     assert len(shops) > 0
     essential_fields = [ f.name for f in Restaurant._meta.fields if not f.blank and not f.null]
+    #データベースの有効なフィールド名のリスト
+    valid_fields = [ f.name for f in Restaurant._meta.fields ]
     shop_keys = shops[0].keys()
     assert all([key in shop_keys for key in essential_fields]), f"{shop_keys} must include all in {essential_fields}"
+
+    #CHANGED
+    #青葉さんのUSE_RETURN_FIELD_LISTのフィールド情報も登録できるよう修正
+    
+    #NOTE 
+    #hotpepper APIで辞書がネストされているアイテムは全てここで代表となる値を一つ選んでしまっているので, プロンプト等での処理は不要
+    
     for shop in shops:
         fields = {
             "name" : shop["name"],
@@ -159,7 +168,16 @@ def insert_objects(hotpepper_response):
             "station_name" : shop["station_name"],
             "url" : shop["urls"]["pc"],
         }
-        if "catch" in shop.keys():
-            fields["catch"] = shop["catch"]
+
+        for key in shop.keys():
+            if key == "small_area":
+                fields["small_area_code"] = shop["small_area"]["code"]
+                fields["small_area_name"] = shop["small_area"]["name"]
+            elif key == "coupon_urls":
+                fields["coupon_url"] = shop[key]["pc"]
+            elif key == "id":
+                fields["hotpepper_id"] = shop[key]
+            elif key in valid_fields:
+                fields[key] = shop[key]
         Restaurant.objects.create(**fields)
     return shops

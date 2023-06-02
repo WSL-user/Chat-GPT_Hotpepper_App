@@ -24,16 +24,37 @@ class RestaurantQuerySet(models.QuerySet):
 class Restaurant(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=256, unique=True)
-    catch = models.CharField(max_length=512, blank=True)
-    wifi = models.CharField(max_length=32)
-    child = models.CharField(max_length=32)
-    budget = models.CharField(max_length=128)
-    genre = models.CharField(max_length=32)
-    sub_genre = models.CharField(max_length=64)
+    catch = models.CharField(max_length=512, null=True, blank=True)
+    wifi = models.CharField(max_length=32, null=True, blank=True)
+    child = models.CharField(max_length=32, null=True, blank=True)
+    budget = models.CharField(max_length=128, null=True, blank=True)
+    genre = models.CharField(max_length=32, null=True, blank=True)
+    sub_genre = models.CharField(max_length=64, null=True, blank=True)
     station_name = models.CharField(max_length=32, null=True, blank=True)
     url = models.URLField(null=True, blank=True)
 
     restaurant_image = models.OneToOneField(RestaurantPhoto, null=True, blank=True, on_delete=models.CASCADE)
+
+    #CHANGED
+    #青葉さんのhotpepper.py内のUSE_RETURN_FIELD_LIST内に入っており, 現在データベースのフィールドとして存在していないものを追加
+    #access, barrier_free, close, coupon_urls, free_drink, free_food, id(=hotpepper_id), lunch, midnight, mobile_access, name_kana, non_smoking, open, parking, small_area追加
+    access = models.CharField(max_length=256, null=True, blank=True)
+    barrier_free = models.CharField(max_length=128, null=True, blank=True)
+    close = models.CharField(max_length=64, null=True, blank=True)
+    coupon_url = models.URLField(null=True, blank=True)
+    free_drink = models.CharField(max_length=128, null=True, blank=True)
+    free_food = models.CharField(max_length=128, null=True, blank=True)
+    hotpepper_id = models.CharField(max_length=16, null=True, blank=True)
+    lunch = models.CharField(max_length=64, null=True, blank=True)
+    midnight = models.CharField(max_length=64, null=True, blank=True)
+    mobile_access = models.CharField(max_length=128, null=True, blank=True)
+    name_kana = models.CharField(max_length=128, null=True, blank=True)
+    non_smoking = models.CharField(max_length=64, null=True, blank=True)
+    open = models.CharField(max_length=128, null=True, blank=True)
+    parking = models.CharField(max_length=64, null=True, blank=True)
+    small_area_code = models.CharField(max_length=8, null=True, blank=True)
+    small_area_name = models.CharField(max_length=16, null=True, blank=True)
+    review = models.CharField(max_length=1024, null=True, blank=True)
 
     def no_of_ratings(self):
         ratings = Rating.objects.filter(restaurant=self)
