@@ -43,6 +43,14 @@ h1 .fa-utensils {
   font-size: 0.9rem;
 }
 
+.inputForm {
+  color: #282c34;
+  width: 60%;
+  padding: 5px;
+  margin: 8px, 0;
+  font-size: 1rem;
+}
+
 .textarea {
   width: 100%;
   padding: 10px;
@@ -65,6 +73,19 @@ h1 .fa-utensils {
 .button:disabled {
   color: #f3f3f3;
   background-color: #444;
+}
+
+.updateButton {
+  width: 70px;
+  height: 30px;
+  color: #444;
+  background-color: #f3f3f3;
+  padding: 2px, 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  outline: none;
+  margin-top: 10px;
 }
 
 .App-header {
