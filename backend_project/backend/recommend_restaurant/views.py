@@ -97,14 +97,13 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             except:
                 print("No hotpepper response")
                 return Response(response, status=status.HTTP_404_NOT_FOUND)
-            #TODO ここエラー出てるから直そう
+            #TODO ここエラー出てるから直そう(修正済み)
             try:
                 shops = insert_objects(hotpepper_response)
                 print("shops : ", shops)
                 response = {"message": "Hotpepper result added",}
                 return Response(response, status=status.HTTP_200_OK)
             except:
-                
                 response = {"message": "Hotpepper result added",}
                 return Response(response, status=status.HTTP_408_REQUEST_TIMEOUT)
 
