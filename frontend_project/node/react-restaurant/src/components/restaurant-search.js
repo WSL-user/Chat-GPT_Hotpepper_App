@@ -89,6 +89,7 @@ function RestaurantSearch(props) {
   const searchClicked = () => {
     const newQuery = concatQueryOption();
     console.log(newQuery);
+    console.log('start searching');
     setChatGPTText("Loading");
     //まず、データベース内からクエリとマッチする要素を検索
     console.log("searching in the DB");
