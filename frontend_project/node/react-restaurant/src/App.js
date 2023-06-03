@@ -21,6 +21,8 @@ function App() {
   const [editedRestaurant, setEditedRestaurant] = useState(null);
   const [token, setToken, deleteToken] = useCookies(["mr-token"]);
   const [data, loading, error] = useFetch();
+  const [isClose, setIsClose] = useState(false);
+  const updateState = () => setIsClose(!isClose);
 
   useEffect(() => {
     setRestaurants(data);
@@ -95,6 +97,8 @@ function App() {
             editClicked={editClicked}
             deleteClicked={deleteClicked}
             newRestaurant={newRestaurant}
+            isClose={isClose}
+            toggleState={updateState}
           />
           <h1 className="title">
             <FontAwesomeIcon icon={faUtensils} /> Restaurant Rater ChatGPT
@@ -108,6 +112,8 @@ function App() {
         <RestaurantDetails
           restaurant={selectedRestaurant}
           updateRestaurant={loadRestaurant}
+          isClose={isClose}
+          toggleState={updateState}
         />
         {editedRestaurant ? (
           <RestaurantForm

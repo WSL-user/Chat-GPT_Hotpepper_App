@@ -55,6 +55,8 @@ function RestaurantDrawer(props) {
               editClicked={props.editClicked}
               deleteClicked={props.deleteClicked}
               clickeClose={onClose}
+              isClose={props.isClose}
+              toggleState={props.toggleState}
             />
           </DrawerBody>
           <DrawerFooter>

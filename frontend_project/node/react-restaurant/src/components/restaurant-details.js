@@ -62,9 +62,13 @@ function RestaurantDetails(props) {
       .catch((error) => console.log(error));
   };
 
+  const closeCard = () => {
+    props.toggleState();
+  };
+
   return (
     <Box>
-      {props.restaurant ? (
+      {props.restaurant && props.isClose == false ? (
         <Box>
           <Card>
             <CardHeader>
@@ -72,11 +76,15 @@ function RestaurantDetails(props) {
                 <Heading size="md">{props.restaurant.name}</Heading>
                 <Box w="20px">
                   <a href={props.restaurant.url}>
-                    <FontAwesomeIcon className="homePage" icon={faHouse} fontSize="25px"/>
+                    <FontAwesomeIcon
+                      className="homePage"
+                      icon={faHouse}
+                      fontSize="25px"
+                    />
                   </a>
                 </Box>
                 <Spacer />
-                <CloseButton />
+                <CloseButton onClick={closeCard} />
               </HStack>
             </CardHeader>
             <Divider />
