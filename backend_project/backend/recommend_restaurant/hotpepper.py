@@ -164,7 +164,8 @@ def insert_objects(hotpepper_response):
             "wifi" : shop["wifi"],
             "budget" : shop["budget"]["name"],
             "genre" : shop["genre"]["name"],
-            "sub_genre" : shop["sub_genre"]["name"],
+            #CHANGED sub_genre常にある前提にしていた部分を変更
+            # "sub_genre" : shop["sub_genre"]["name"],
             "station_name" : shop["station_name"],
             "url" : shop["urls"]["pc"],
         }
@@ -173,6 +174,9 @@ def insert_objects(hotpepper_response):
             if key == "small_area":
                 fields["small_area_code"] = shop["small_area"]["code"]
                 fields["small_area_name"] = shop["small_area"]["name"]
+            #CHANGED sub_genreある時だけにしときました
+            elif key == "sub_genre":
+                fields["sub_genre"] = shop["sub_genre"]["name"]
             elif key == "coupon_urls":
                 fields["coupon_url"] = shop[key]["pc"]
             elif key == "id":
