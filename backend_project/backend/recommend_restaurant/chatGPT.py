@@ -2,7 +2,7 @@ import openai
 from django.forms.models import model_to_dict
 
 # Create your views here.
-openai.api_key='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'
+openai.api_key='YOUR OPENAI API KEY HERE'
 
 #chatGPTに聞く関数
 def ask_chatGPT(restaurant):
