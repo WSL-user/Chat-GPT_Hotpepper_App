@@ -100,14 +100,9 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             #TODO ここエラー出てるから直そう(修正済み)
             try:
                 shops = insert_objects(hotpepper_response)
-                print("shops : ", shops)
-                #CHANGED 
-                #とりあえずここのことかなと思うのでデータベース追加の成否に応じてメッセージ変えときました
                 response = {"message": "Found some hotpepper results adding to the database",}
                 return Response(response, status=status.HTTP_200_OK)
             except:
-                #CHANGED 
-                #とりあえずここのことかなと思うのでデータベース追加の成否に応じてメッセージ変えときました
                 response = {"message": "No results Available",}
                 return Response(response, status=status.HTTP_408_REQUEST_TIMEOUT)
 
