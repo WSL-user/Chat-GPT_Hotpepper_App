@@ -86,7 +86,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             return Response({"chatGPT_failure" : "failed to call ChatGPT"}, status=status.HTTP_408_REQUEST_TIMEOUT)
 
     #検索クエリから、ホットペッパーAPIによって得られた飲食店達を新たにデータベースに追加
-    #URL: f"http://localhost:8001/restaurants/restaurants_api/register_hotpepper_results/"
+    #URL: f"http://localhost:{PORT番号}/restaurants/restaurants_api/register_hotpepper_results/"
     @action(detail=False, methods=['POST'])
     def register_hotpepper_results(self, request):
         if 'hotpepper_query' in request.data:
@@ -100,11 +100,10 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             #TODO ここエラー出てるから直そう(修正済み)
             try:
                 shops = insert_objects(hotpepper_response)
-                print("shops : ", shops)
-                response = {"message": "Hotpepper result added",}
+                response = {"message": "Found some hotpepper results adding to the database",}
                 return Response(response, status=status.HTTP_200_OK)
             except:
-                response = {"message": "Hotpepper result added",}
+                response = {"message": "No results Available",}
                 return Response(response, status=status.HTTP_408_REQUEST_TIMEOUT)
 
         else:

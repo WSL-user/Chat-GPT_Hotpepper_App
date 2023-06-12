@@ -1,6 +1,8 @@
 from .models import Restaurant
+from django.db.utils import IntegrityError
 import requests
 import json
+
 import pandas as pd
 from IPython import display
 import time
@@ -103,8 +105,9 @@ def extra_keywords(sentence):
 def make_body(search_words, region):
     #改善の余地あり
     body_part = extra_keywords(search_words)
-
     #'keyword':search_words['keyword'],
+    #CHANGED(益川) 
+    #
     body = {'key':HOTPEPPER_API_KEY,
             'format':'json',
             'address':region,
@@ -113,7 +116,6 @@ def make_body(search_words, region):
             'order':4, #初期値は4だが自明にする
             }
     body = body_part | body #辞書結合
-
     #print("body:", body)
 
     for filed in USE_SEARCH_FIELD_LIST:
@@ -134,7 +136,6 @@ def ask_hotpepper(search_sentence, count=100):
     region = ""
     body = make_body(search_sentence, region)
     response = requests.get(URL,body)
-
     return response
 
 #ホットペッパーグルメの検索結果をデータベースに追加する関数
@@ -155,29 +156,43 @@ def insert_objects(hotpepper_response):
     
     #NOTE 
     #hotpepper APIで辞書がネストされているアイテムは全てここで代表となる値を一つ選んでしまっているので, プロンプト等での処理は不要
-    
+    print(f"Len Shops: {len(shops)}")
     for shop in shops:
         fields = {
             "name" : shop["name"],
             "address" : shop["address"],
-            "child": shop["child"],
-            "wifi" : shop["wifi"],
-            "budget" : shop["budget"]["name"],
-            "genre" : shop["genre"]["name"],
-            "sub_genre" : shop["sub_genre"]["name"],
-            "station_name" : shop["station_name"],
-            "url" : shop["urls"]["pc"],
+            # "child": shop["child"],
+            # "wifi" : shop["wifi"],
+            # "budget" : shop["budget"]["name"],
+            # "genre" : shop["genre"]["name"],
+            #CHANGED sub_genre常にある前提にしていた部分を変更
+            # "sub_genre" : shop["sub_genre"]["name"],
+            # "station_name" : shop["station_name"],
+            # "url" : shop["urls"]["pc"],
         }
 
         for key in shop.keys():
             if key == "small_area":
                 fields["small_area_code"] = shop["small_area"]["code"]
                 fields["small_area_name"] = shop["small_area"]["name"]
-            elif key == "coupon_urls":
-                fields["coupon_url"] = shop[key]["pc"]
+            #CHANGED genre, sub_genre, budgetは同じパターンなのである時だけにして、まとめておきました
+            elif key in ["genre", "sub_genre", "budget"]:
+                fields[key] = shop[key]["name"]
+            elif key == "url":
+                fields[key] = shop[key]["pc"]
             elif key == "id":
                 fields["hotpepper_id"] = shop[key]
+            elif key == "coupon_urls":
+                fields["coupon_url"] = shop[key]["pc"]
             elif key in valid_fields:
                 fields[key] = shop[key]
-        Restaurant.objects.create(**fields)
+        # print(fields)
+        assert all([key in essential_fields + valid_fields for key in fields.keys()]), "Your fields contain some invalid keys"
+        #CHANGED
+        #既に追加してあるデータを再度追加すると、IntegrityErrorが出るのでそれだけ例外処理
+        try:
+            Restaurant.objects.create(**fields)
+        except IntegrityError:
+            pass
+        
     return shops
