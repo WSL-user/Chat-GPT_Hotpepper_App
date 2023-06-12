@@ -7,3 +7,5 @@ django-cors-headers
 ipython
 Janome
 regex
+lxml
+beautifulsoup4
