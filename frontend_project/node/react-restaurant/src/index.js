@@ -1,30 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import Auth from './components/auth';
-import reportWebVitals from './reportWebVitals';
-import { CookiesProvider } from 'react-cookie';
-import { Route, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import Auth from "./components/auth";
+import reportWebVitals from "./reportWebVitals";
+import { CookiesProvider } from "react-cookie";
+import { Route, createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Auth />,
-    },
-    {
-        path: "/restaurants",
-        element: <App />,
-    }
+  {
+    path: "/",
+    element: <Auth />,
+  },
+  {
+    path: "/restaurants",
+    element: <App />,
+  },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <React.StrictMode>
-        <CookiesProvider>
-        <RouterProvider router={router}/>
-        </CookiesProvider>
+  <React.StrictMode>
+    <ChakraProvider>
+      <RouterProvider router={router} />
+    </ChakraProvider>
   </React.StrictMode>
 );
 

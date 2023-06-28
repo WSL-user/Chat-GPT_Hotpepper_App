@@ -11,10 +11,15 @@ function RestaurantList(props) {
 
     const restaurantClicked = restaurant => evt => {
         props.restaurantClicked(restaurant)
+        if (props.isClose == true) {
+            props.toggleState()
+        }
+        props.clickeClose()
     }
 
     const editClicked = restaurant => {
         props.editClicked(restaurant);
+        props.clickeClose()
     }
 
     const deleteClicked = restaurant => {

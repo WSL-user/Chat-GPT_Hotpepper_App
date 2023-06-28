@@ -13,7 +13,7 @@ function RestaurantForm(props) {
     const [ sub_genre, setSubGenre] = useState(props.restaurant.sub_genre)
     const [token] = useCookies(["mr-token"]);
 
-    useEffect( () => {
+    useEffect(() => {
         setName(props.restaurant.name);
         setAddress(props.restaurant.address);
         setWifi(props.restaurant.wifi);
@@ -45,37 +45,37 @@ function RestaurantForm(props) {
             { props.restaurant? (
                     <div>
                 <label htmlFor="name">Name</label><br/>
-                <input id="name" type="text" placeholder="name" value={name}
-            onChange={evt => setName(evt.target.value)}
+                <input className="inputForm" id="name" type="text" placeholder="name" value={name}
+                        onChange={evt => setName(evt.target.value)}
                 /><br/>
                 <label htmlFor="address">Address</label><br/>
-                <textarea id="address" type="text" placeholder="catch" value={address}
+                <textarea className="inputForm" id="address" type="text" placeholder="catch" value={address}
             onChange={evt => setAddress(evt.target.value)}></textarea><br/>
 
                 <label htmlFor="budget">Budget</label><br/>
-                <input id="budget" type="text" placeholder="budget" value={budget}
+                <input className="inputForm" id="budget" type="text" placeholder="budget" value={budget}
             onChange={evt => setBudget(evt.target.value)}/><br/>
 
                 <label htmlFor="wifi">Wifi</label><br/>
-                <input id="wifi" type="text" placeholder="wifi" value={wifi}
+                <input className="inputForm" id="wifi" type="text" placeholder="wifi" value={wifi}
             onChange={evt => setWifi(evt.target.value)}/><br/>
 
                 <label htmlFor="child">Child</label><br/>
-                <input id="child" type="text" placeholder="child" value={child}
+                <input className="inputForm" id="child" type="text" placeholder="child" value={child}
             onChange={evt => setChild(evt.target.value)}/><br/>
 
                 <label htmlFor="genre">Genre</label><br/>
-                <input id="genre" type="text" placeholder="child" value={genre}
+                <input className="inputForm" id="genre" type="text" placeholder="child" value={genre}
             onChange={evt => setGenre(evt.target.value)}/><br/>
 
                 <label htmlFor="sub_genre">Sub genre</label><br/>
-                <input id="sub_genre" type="text" placeholder="sub_genre" value={sub_genre}
+                <input className="inputForm" id="sub_genre" type="text" placeholder="sub_genre" value={sub_genre}
             onChange={evt => setSubGenre(evt.target.value)}/><br/>
 
 
                 {props.restaurant.id ?
-                 <button onClick={updateClicked} disabled={isDisabled}>Update</button> :
-                 <button onClick={createClicked} disabled={isDisabled}>Create</button>		     
+                 <button className="updateButton" onClick={updateClicked} disabled={isDisabled}>Update</button> :
+                 <button className="updateButton" onClick={createClicked} disabled={isDisabled}>Create</button>		     
                 }
 
 

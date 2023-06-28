@@ -2,9 +2,8 @@
 
 ![Test Image 1](./demo.png)
 
-とりあえずReact + Django版のChat-GPT_Hotpepper_Appを作成しました
-
-無限ロードに陥ったりと、まだまだ問題がたくさんあるので、これを叩き台に改善するのはいかがでしょう?
+Chakra UIを使ってUIを更新しました！
+その他レストラン一覧や表示方法など変更しています。
 
 ## 初期設定
 ```
@@ -35,6 +34,8 @@ $npm install --save @fortawesome/free-solid-svg-icons
 $npm install --save @fortawesome/react-fontawesome
 $npm install react-cookie
 $npm install react-router-dom
+$npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
+$npm i react-select
 ```
 
 2. Aobaさん: ホットペッパーAPI周り，取得した情報をフィルタリング，Djangoを使ってバックエンド実装 [ここらへん](./backend_project/backend/recommend_restaurant)いじる感じだと思う
