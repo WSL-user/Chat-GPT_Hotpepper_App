@@ -1,5 +1,6 @@
 import openai
 from django.forms.models import model_to_dict
+from .reviews import review_responce
 
 # Create your views here.
 openai.api_key='YOUR OPENAI API KEY HERE'
@@ -7,8 +8,13 @@ openai.api_key='YOUR OPENAI API KEY HERE'
 #chatGPTに聞く関数
 def ask_chatGPT(restaurant):
     prompt = make_prompt(restaurant)
-    print(prompt)
-    return ChatGPT(prompt)
+    print(str(model_to_dict(restaurant)["hotpepper_id"])!="None")
+    ans=""
+    if str(model_to_dict(restaurant)["hotpepper_id"])!="None":
+        print(model_to_dict(restaurant)["hotpepper_id"])
+        ans=review_responce(model_to_dict(restaurant)["hotpepper_id"])
+        print(ans)
+    return ChatGPT(prompt) + ans
     
 #プロンプト生成
 #TODO 改良してみよう(渕君)
